@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package product;
+
+message Product {
+    string ID = 1;
+    string Name = 2;
+    uint64 Quantity = 3;
+    repeated string Images = 4;
+}
+
+message ProductList {
+    repeated Product Products = 1;
+}

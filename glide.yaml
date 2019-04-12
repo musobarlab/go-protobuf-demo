@@ -1,0 +1,4 @@
+package: github.com/musobarlab/go-protobuf-demo
+import:
+- package: github.com/golang/protobuf
+  version: v1.3.1

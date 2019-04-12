@@ -1,0 +1,6 @@
+hash: 1723889adbd4cc5b377b84f5ac366780032e8b7f0dd29c08f048f621f356e03a
+updated: 2019-04-09T17:08:09.552724+07:00
+imports:
+- name: github.com/golang/protobuf
+  version: b5d812f8a3706043e23a9cd5babf2e5423744d30
+testImports: []
