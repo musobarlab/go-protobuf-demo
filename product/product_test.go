@@ -17,6 +17,19 @@ func BenchmarkSerializeProductToProto(b *testing.B) {
 	}
 }
 
+func BenchmarkSerializeProductToProtoFast(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		product := &Product{
+			ID:       "1",
+			Name:     "Samsung Galaxy S10",
+			Quantity: 10,
+			Images:   []string{"img1", "img2"},
+		}
+
+		product.ToProtoFast()
+	}
+}
+
 func BenchmarkSerializeProductToJSON(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		product := &Product{
@@ -41,6 +54,20 @@ func BenchmarkDeserializeProductFromProto(b *testing.B) {
 	data, _ := product.ToProto()
 	for i := 0; i < b.N; i++ {
 		FromProto(data)
+	}
+}
+
+func BenchmarkDeserializeProductFromProtoFast(b *testing.B) {
+	product := &Product{
+		ID:       "1",
+		Name:     "Samsung Galaxy S10",
+		Quantity: 10,
+		Images:   []string{"img1", "img2"},
+	}
+
+	data, _ := product.ToProto()
+	for i := 0; i < b.N; i++ {
+		FromProtoFast(data)
 	}
 }
 

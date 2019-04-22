@@ -5,6 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	protogo "github.com/musobarlab/go-protobuf-demo/protogo/product"
+	protogofast "github.com/musobarlab/go-protobuf-demo/protogofast/product"
 )
 
 // Product type
@@ -18,6 +19,17 @@ type Product struct {
 // ToProto function
 func (p *Product) ToProto() ([]byte, error) {
 	productProto := &protogo.Product{
+		ID:       p.ID,
+		Name:     p.Name,
+		Quantity: p.Quantity,
+		Images:   p.Images,
+	}
+	return proto.Marshal(productProto)
+}
+
+// ToProtoFast function
+func (p *Product) ToProtoFast() ([]byte, error) {
+	productProto := &protogofast.Product{
 		ID:       p.ID,
 		Name:     p.Name,
 		Quantity: p.Quantity,
@@ -48,11 +60,11 @@ func FromProto(data []byte) (*Product, error) {
 	}, nil
 }
 
-// FromJSON function
-func FromJSON(data []byte) (*Product, error) {
-	var p protogo.Product
+// FromProtoFast function
+func FromProtoFast(data []byte) (*Product, error) {
+	var p protogofast.Product
 
-	err := json.Unmarshal(data, &p)
+	err := proto.Unmarshal(data, &p)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +75,18 @@ func FromJSON(data []byte) (*Product, error) {
 		Quantity: p.Quantity,
 		Images:   p.Images,
 	}, nil
+}
+
+// FromJSON function
+func FromJSON(data []byte) (*Product, error) {
+	var p Product
+
+	err := json.Unmarshal(data, &p)
+	if err != nil {
+		return nil, err
+	}
+
+	return &p, nil
 }
 
 // Products type list of Product
