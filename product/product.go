@@ -1,11 +1,13 @@
 package product
 
 import (
-	"encoding/json"
+	"github.com/json-iterator/go"
 
 	"github.com/golang/protobuf/proto"
 	protogo "github.com/musobarlab/go-protobuf-demo/protogo/product"
 )
+
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 // Product type
 type Product struct {
