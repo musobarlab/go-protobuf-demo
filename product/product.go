@@ -52,19 +52,14 @@ func FromProto(data []byte) (*Product, error) {
 
 // FromJSON function
 func FromJSON(data []byte) (*Product, error) {
-	var p protogo.Product
+	var p Product
 
 	err := json.Unmarshal(data, &p)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Product{
-		ID:       p.ID,
-		Name:     p.Name,
-		Quantity: p.Quantity,
-		Images:   p.Images,
-	}, nil
+	return &p, nil
 }
 
 // Products type list of Product
