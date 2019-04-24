@@ -6,7 +6,12 @@ message Product {
     string ID = 1;
     string Name = 2;
     uint64 Quantity = 3;
-    repeated string Images = 4;
+    Image Image = 4;
+}
+
+message Image {
+    string URL = 1;
+    bytes Data = 2;
 }
 
 message ProductList {

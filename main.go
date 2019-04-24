@@ -2,16 +2,34 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
 
 	productPackage "github.com/musobarlab/go-protobuf-demo/product"
 )
 
 func main() {
+
+	f, err := os.Open("aaa.jpg")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer f.Close()
+
+	imageData, err := ioutil.ReadAll(f)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	product := &productPackage.Product{
 		ID:       "1",
 		Name:     "Samsung Galaxy S10",
 		Quantity: 10,
-		Images:   []string{"img1", "img2"},
+		Image: productPackage.Image{
+			URL:  "wuriyanto.com",
+			Data: imageData,
+		},
 	}
 
 	dataProto, err := product.ToProto()
@@ -19,13 +37,13 @@ func main() {
 		fmt.Println(err)
 	}
 
-	dataJSON, _ := product.ToJSON()
-	fmt.Println(string(dataJSON))
-
-	fmt.Println(dataProto)
-
 	// -------------------------
 
 	newProduct, _ := productPackage.FromProto(dataProto)
-	fmt.Println(newProduct)
+	fmt.Println(newProduct.Name)
+
+	err = ioutil.WriteFile("out.jpg", newProduct.Image.Data, 0666)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
